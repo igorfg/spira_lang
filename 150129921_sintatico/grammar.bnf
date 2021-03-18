@@ -1,0 +1,73 @@
+<program> ::= <declaration-list>
+
+<declaration-list> ::= <declaration-list> <declaration> 
+                     | <declaration>
+
+<declaration> ::= <func-declaration>
+                | <var-declaration>
+                
+<type> ::= int
+         | float
+         | set
+         | elem
+
+<var-declaration> ::= <type> <id> ";"
+
+<func-declaration> ::= <type> <id> "(" [<params-list>]? ")" <block-stmt>
+
+<params-list> ::= <params-list> "," <param>
+                | <param>
+
+<param> ::= <type> <id>
+
+<block-stmt> ::= "{" [<var-declaration>]* [<stmt>]* <return-stmt> "}"
+
+<stmt> ::= <expression-stmt>
+         | <if-stmt> ";"
+         | <for-stmt> ";"
+         | <func-call-stmt> ";"
+         | <set-stmt> ";"
+
+<expression-stmt> ::= <expression> ";"
+                    | ";"
+
+<expression> ::= <attribuition-expression>
+               | <operation-expression>
+               | <logical-expression>
+
+<attribuition-expression> ::= <id> "=" <expression> 
+
+<operation-expression> ::= <add-expression>
+
+<relational-expression> ::= <operation-expression> ["<="|"<"|">"|">="|"=="|"!="] <operation-expression>
+
+<logical-expression> ::= "!" <relational-expression>
+                       | <relational-expression> "||" <relational-expression>
+                       | <relational-expression> "&&" <relational-expression>
+                       | <relational-expression>
+
+<if-stmt> ::= "if" "(" <expression> ")" [<stmt>|<block-stmt>]
+            | <if-stmt> "else" <stmt>
+
+<for-stmt> ::= for "(" [<attribuition-expression>]? ";" [<logical-expression>]? ";" [<operation-expression>]? ")" [<stmt>|<block-stmt>]
+
+<return-stmt> ::= "return" [<id>]? ";"
+
+<add-expression> ::= <add-expression> ["+"|"-"] <mul-expression>
+                   | <mul-expression>
+
+<mul-expression> ::= <mul-expression> ["*"|"/"] <parenthesis-expression>
+                   | <parenthesis-expression>
+                   | <single-operator>
+
+<parenthesis-expression> ::= "(" <add-expression> ")"
+
+<single-operator> ::= <id>                      
+
+<func-call-stmt> ::= <id> "(" <params-list> ")"
+
+<id> ::= [<letter>|"_"]+ [<letter>|<digit>|"_"]*
+
+<digit> ::= [0-9]
+
+<letter> ::= [a-zA-Z]+
